@@ -20,3 +20,6 @@ debugging = {debug}
     
 DEBUGGING_SOCKET = socket.gethostname()
 DEBUGGING_PORT = 8080
+SSL_CERT = None
+SSL_KEY = None
+PORT = 80 if not SSL_CERT else 443

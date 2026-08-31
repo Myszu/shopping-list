@@ -13,7 +13,6 @@ from modules import config as cfg
 # LOGGING FORMATTER
 # logging.basicConfig(format=f'%(asctime)s | %(levelname)s - %(message)s', datefmt='%d.%m.%Y %H:%M:%S', level=logging.INFO, filename='./logs/server.log', force=True)
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # STARTUP
@@ -32,6 +31,6 @@ app: FastAPI = FastAPI(
 
 if __name__ == "__main__": 
     if cfg.DEBUGGING:
-        uvicorn.run(app='main:app', host=cfg.DEBUGGING_SOCKET, port=cfg.DEBUGGING_PORT, reload=True) # HTTP -> 80, HTTPS -> 443
+        uvicorn.run(app='main:app', host=cfg.DEBUGGING_SOCKET, port=cfg.DEBUGGING_PORT, reload=True)
     else: # PROD MODE  
-        uvicorn.run(app='main:app', host='0.0.0.0', port=80, reload=True) # HTTP -> 80, HTTPS -> 443
+        uvicorn.run(app='main:app', host='0.0.0.0', port=cfg.PORT, reload=True)
