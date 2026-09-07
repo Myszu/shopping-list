@@ -1,5 +1,5 @@
 # GLOBAL IMPORTS
-import uvicorn, logging
+import uvicorn, logging, asyncio
 from typing import Optional
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, Form, Depends
@@ -17,7 +17,7 @@ from modules import config as cfg
 async def lifespan(app: FastAPI):
     # STARTUP
     logging.info('Server startup...')
-    
+
     yield
     
     #SHUTDOWN
