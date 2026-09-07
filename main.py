@@ -1,18 +1,26 @@
 # GLOBAL IMPORTS
-import uvicorn, logging, asyncio
+import uvicorn, logging
 from typing import Optional
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, Form, Depends
+from fastapi.responses import HTMLResponse
+from fastapi.exceptions import HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
+from datetime import date
 
 # LOCAL IMPORTS
 from modules import config as cfg
+from routers import account
 
 # LOGGING FORMATTER
 # logging.basicConfig(format=f'%(asctime)s | %(levelname)s - %(message)s', datefmt='%d.%m.%Y %H:%M:%S', level=logging.INFO, filename='./logs/server.log', force=True)
 
+# CONSTANTS
+CREATED = date(2026, 8, 31)
+
+# LIFESPAN
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # STARTUP
@@ -23,6 +31,7 @@ async def lifespan(app: FastAPI):
     #SHUTDOWN
     logging.info('Server shutdown...')
     
+# APP CONFIG
 app: FastAPI = FastAPI( 
     lifespan=lifespan,
     docs_url=None if not cfg.DEBUGGING else "/docs",
